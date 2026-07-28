@@ -1,62 +1,73 @@
 # =============================================================================
-# PROGRAMMING FUNDAMENTALS — Assignment 1
-# Topic: Conditional Logic, Loops, and Functions
+# PROGRAMMING FUNDAMENTALS — Assignment 2
+# Topic: Conditional Logic (if / elif / else) and Functions
 # =============================================================================
 #
-# TASK: Prime Number Checker
+# TASK: Student Grade System
 #
-# Write a Python program that checks whether a given number is prime.
+# Write a Python program that reads a student's score and outputs the
+# corresponding letter grade based on the scale below.
 #
-# A prime number is a whole number greater than 1 that has no divisors
-# other than 1 and itself (e.g., 2, 3, 5, 7, 11, 13 ...).
+# Grading Scale:
+#   Score 80 – 100  →  Grade A
+#   Score 70 – 79   →  Grade B
+#   Score 60 – 69   →  Grade C
+#   Score 50 – 59   →  Grade D
+#   Score below 50  →  Grade F
 #
 # -----------------------------------------------------------------------------
 # EXPECTED INPUT / OUTPUT EXAMPLES
 # -----------------------------------------------------------------------------
 #
-#   Enter a number: 7
-#   7 is a prime number.
+#   Enter student score (0-100): 85
+#   Grade: A
 #
-#   Enter a number: 10
-#   10 is NOT a prime number.
+#   Enter student score (0-100): 73
+#   Grade: B
 #
-#   Enter a number: 1
-#   1 is NOT a prime number.
+#   Enter student score (0-100): 45
+#   Grade: F
+#
+#   Enter student score (0-100): 110
+#   Error: Score must be between 0 and 100.
 #
 # -----------------------------------------------------------------------------
 # REQUIREMENTS
 # -----------------------------------------------------------------------------
-# - You MUST implement the logic inside a function (see scaffold below).
-# - Numbers less than 2 are NOT prime — handle this inside the function.
-# - The main block must call the function and print the result.
+# - You MUST use functions (see scaffold below).
+# - Validate that the score is within the range 0–100 inside get_grade().
+#   If it is not, return None and let main() print the error message.
+# - Use if / elif / else to determine the grade.
 #
 
+#
 # =============================================================================
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
 
-def is_prime(n):
-    if n <= 1:
-        return False
-    if n <= 3:
-        return True
-    if n % 2 == 0 or n % 3 == 0:
-        return False
-    i = 5
-    while i * i <= n:
-        if n % i == 0 or n % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+
+def get_grade(score):
+    if score < 0 or score > 100:
+        return None
+    elif score >= 80:
+        return "your grade is A"
+    elif score >= 70:
+        return "your grade is B"
+    elif score >= 60:
+        return "your grade is C"
+    elif score >= 50:
+        return "your grade is D"
+    elif score < 50:
+        return "your grade is F"
+
+def main():
+    score = float(input("Enter your score (0-100): "))
+    grade = get_grade(score)
+    if grade is None:
+        print("Please enter a valid score between 0 and 100.")
+    else:
+        print(grade)
 
 if __name__ == "__main__":
-    try:
-        num = int(input("Enter a number: "))
-    except ValueError:
-        print("Please enter a valid integer.")
-    else:
-        if is_prime(num):
-            print(f"{num} is prime.")
-        else:
-            print(f"{num} is not prime.")
+    main()
